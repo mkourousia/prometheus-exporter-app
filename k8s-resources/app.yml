@@ -1,0 +1,43 @@
+# App's service MUST be:
+#   name: maria-app
+#   namespace: default
+#   port: 2113
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maria-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maria-app
+  template:
+    metadata:
+      labels:
+        app: maria-app
+    spec:
+      containers:
+      - name: maria-app-container
+        image: local.registry/maria-app:1.0.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DOCKERHUB_ORGANIZATION
+          value: camunda
+---     
+apiVersion: v1
+kind: Service
+metadata:
+  name: maria-app
+  namespace: default
+  labels:
+    app: maria-app
+spec:
+  selector:
+    app: maria-app
+  ports:
+    - name: metrics
+      port: 2113
+      targetPort: metrics
+  type: ClusterIP
