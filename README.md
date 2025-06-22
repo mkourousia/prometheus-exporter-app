@@ -1,4 +1,4 @@
-# DockerHub Stats Exporter
+# DockerHub Statistics Exporter
 
 This project provides a lightweight exporter that retrieves DockerHub repository statistics and makes them available for monitoring systems such as Prometheus.
 
